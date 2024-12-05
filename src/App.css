@@ -1,0 +1,20 @@
+:root {
+    --grey-color: #81858a;
+    --grey-background-color: #f2f4f8;
+    --light-grey-color: #c5c6ca;
+    --light-blue-color: #2991ec;
+  }
+  
+  .chat-app {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .sidebar {
+    width: 40%;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+  }
+  

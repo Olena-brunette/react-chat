@@ -3,6 +3,7 @@ import { ChatContext } from '../../context';
 import './chatList.css';
 import { getChats } from '../../api/helpers';
 import { formatTimestamp, getColor } from '../helpers';
+import { Toast } from '../toast/Toast';
 
 export const ChatList = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,10 @@ export const ChatList = () => {
 
   const handleChangeActiveChat = (chatId: string) => {
     context?.setActiveChatId(chatId);
+  };
+
+  const closeError = () => {
+    setError('');
   };
 
   useEffect(() => {
@@ -42,8 +47,8 @@ export const ChatList = () => {
   return (
     <div className="chat-list">
       {loading && <div className="loader"></div>}
+      {error && <Toast message={error} type="error" onClose={closeError} />}
       {!loading &&
-        !error &&
         context?.chats.map((chat, index) => {
           return (
             <div

@@ -17,7 +17,6 @@ const transformResponse = (response: any) =>
 
 
   export const setAccessToken = (token: string | null) => {
-    console.log(token);
     if (token) {
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
@@ -58,7 +57,6 @@ export const editChat = async ({
   const { _id, ...rest } = response.data;
   return { ...rest, id: _id };
 };
-
 
 export const addChat = async ({
   id,
@@ -122,3 +120,41 @@ export const getUser = async () => {
   }
   return response.data;
 }
+
+
+export const sendMessage = async ({
+  id,
+  userId,
+  message,
+}: {
+  id: string;
+  userId: string;
+  message: string;
+}) => {
+  const response = await API.post(`${baseUrl}/messages`, {
+    id,
+    userId,
+    message,
+  });
+  if (response.status !== 200) {
+    throw new Error('An error occurred while sending message');
+  }
+  const { _id, ...rest } = response.data;
+  return { ...rest, id: _id };
+};
+
+export const getAllMessagesPerChat = async ({
+  id,
+  lastMessageId,
+}: {
+  id: string;
+  lastMessageId?: string;
+}) => {
+  const response = await API.get(`${baseUrl}/messages/${id}`, {
+    params: { lastMessageId },
+  });
+  if (response.status !== 200) {
+    throw new Error('An error occurred while fetching messages');
+  }
+  return transformResponse(response);
+};

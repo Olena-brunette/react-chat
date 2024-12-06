@@ -207,7 +207,7 @@ export const ChatList: React.FC<ChatListProps> = ({ loading }) => {
           <FormProvider {...methods}>
             <Form
               fields={fields}
-              title={`Edit ${firstname} ${lastname} chat`}
+              title={`Edit ${firstname} ${lastname || ''} chat`}
             />
           </FormProvider>
         </Dialog>

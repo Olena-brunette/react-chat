@@ -5,6 +5,8 @@ import { addChat } from '../../api/helpers';
 import Dialog from '../dialog/Dialog';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Form } from '../form/Form';
+import AuthService from '../../api/authService';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   search: string;
@@ -27,6 +29,8 @@ export const Header: React.FC<HeaderProps> = ({
   const [openAddChat, setOpenAddChat] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
   const context = useContext(ChatContext);
   const userId = context?.user?.id;
 
@@ -88,6 +92,13 @@ export const Header: React.FC<HeaderProps> = ({
       setLoading(false);
     }
   };
+
+  const logout = () => {
+    context?.setUser(null);
+    AuthService.clearTokens();
+    navigate('/login');
+  };
+
   return (
     <header>
       <div className="login-section">
@@ -98,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button className="login-btn" onClick={handleOpenAddChat}>
             Add Chat
           </button>
-          <button className="login-btn">Log in</button>
+          <button className="login-btn" onClick={logout}>Log out</button>
         </div>
       </div>
       <div className="search-input-container">

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import API from './api';
 
 interface GetChatProps {
   id: string;
@@ -14,8 +15,19 @@ const transformResponse = (response: any) =>
     id: _id,
   }));
 
+
+  export const setAccessToken = (token: string | null) => {
+    console.log(token);
+    if (token) {
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+    } else {
+     delete axios.defaults.headers.common["Authorization"]
+    }
+};
+
 export const getChats = async ({ id, search, lastChatId }: GetChatProps) => {
-  const response = await axios.get(`${baseUrl}/chats/${id}`, {
+  const response = await API.get(`${baseUrl}/chats/${id}`, {
     params: { search, lastChatId },
   });
   if (response.status !== 200) {
@@ -35,7 +47,7 @@ export const editChat = async ({
   firstname: string;
   lastname: string;
 }) => {
-  const response = await axios.put(`${baseUrl}/chats/${chatId}`, {
+  const response = await API.put(`${baseUrl}/chats/${chatId}`, {
     userId,
     firstname,
     lastname,
@@ -57,7 +69,7 @@ export const addChat = async ({
   firstname: string;
   lastname: string;
 }) => {
-  const response = await axios.post(`${baseUrl}/chats`, {
+  const response = await API.post(`${baseUrl}/chats`, {
     id,
     firstname,
     lastname,
@@ -67,4 +79,46 @@ export const addChat = async ({
   }
   const { _id, ...rest } = response.data;
   return { ...rest, id: _id };
+}
+
+export const registerUser = async ({
+  login,
+  password,
+}: {
+  login: string;
+  password: string;
+}) => {
+  const response = await API.post(`${baseUrl}/auth/registration`, {
+    login,
+    password,
+  });
+  if (response.status !== 201) {
+    throw new Error('An error occurred while registering user');
+  }
+  return response.data;
+}
+
+export const loginUser = async ({
+  login,
+  password,
+}: {
+  login: string;
+  password: string;
+}) => {
+  const response = await API.post(`${baseUrl}/auth/login`, {
+    login,
+    password,
+  });
+  if (response.status !== 200) {
+    throw new Error('An error occurred while logging in user');
+  }
+  return response.data;
+}
+
+export const getUser = async () => {
+  const response = await API.get(`${baseUrl}/users/profile`);
+  if (response.status !== 200) {
+    throw new Error('An error occurred while fetching user');
+  }
+  return response.data;
 }

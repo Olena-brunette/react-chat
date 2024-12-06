@@ -136,7 +136,7 @@ export const sendMessage = async ({
     userId,
     message,
   });
-  if (response.status !== 201) {
+  if (response.status !== 200) {
     throw new Error('An error occurred while sending message');
   }
   const { _id, ...rest } = response.data;

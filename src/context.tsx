@@ -36,10 +36,7 @@ export const ChatContext = createContext<ChatContextType | null>(null);
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [chats, setChats] = useState<Chat[]>([]);
-  const [user, setUser] = useState<User | null>({
-    login: 'anna test',
-    id: '67521eb010491354b4f3f5eb',
-  });
+  const [user, setUser] = useState<User | null>(null);
   const [activeChatId, setActiveChatId] = useState('');
 
   const activeChat = useMemo(

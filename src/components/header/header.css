@@ -7,11 +7,55 @@
   background-color: var(--light-grey-color);
 }
 
-.search-input {
+.search-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px 10px;
+  background-color: #fff;
   width: 100%;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  border: 2px solid black;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.search-icon::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background-color: black;
+  top: 12px;
+  left: 12px;
+  transform: rotate(45deg);
+}
+
+.search-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 1em;
+}
+
+.clear-button {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  color: #333;
 }
 
 .login-section {
@@ -38,4 +82,11 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

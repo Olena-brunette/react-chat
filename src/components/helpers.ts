@@ -40,3 +40,8 @@ export const formatTimestamp = (timestamp: number) => {
 export const getColor = (index: number) => {
   return COLORS[index % COLORS.length];
 };
+
+
+export const findById = (array: any[], id: string) => {
+  return array.find((item) => item.id === id);
+}

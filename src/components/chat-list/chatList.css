@@ -1,6 +1,7 @@
 .chat-list {
   flex-grow: 1;
   overflow-y: auto;
+  position: relative;
 }
 
 .chat-item {
@@ -30,6 +31,28 @@
   flex-direction: column;
 }
 
+.chat-head {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chat-actions > button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dark-text-color);
+  font-size: 1.2em;
+  margin-left: 8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .chat-name {
   font-weight: bold;
   margin-left: 8px;
@@ -44,4 +67,8 @@
   font-size: 0.8em;
   color: var(--dark-text-color);
   margin-left: auto;
+}
+
+.delete-header {
+  margin: 15px auto;
 }

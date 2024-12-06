@@ -8,8 +8,8 @@ const transformResponse = (response: any) =>
     id: _id,
   }));
 
-export const getChats = async () => {
-  const response = await axios.get(`${baseUrl}/chats`);
+export const getChats = async (id: string) => {
+  const response = await axios.get(`${baseUrl}/chats/${id}`);
   if (response.status !== 200) {
     throw new Error('An error occurred while fetching chats');
   }

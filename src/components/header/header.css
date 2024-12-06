@@ -1,42 +1,41 @@
 .sidebar header {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: var(--light-grey-color);
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-  }
-  
-  .login-section {
-    width: 100%;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .login-user {
-    display: flex;
-    align-items: center;
-  }
-  
-  .login-user-name {
-    margin-left: 10px;
-  }
-  
-  .login-btn {
-    padding: 8px 15px;
-    background-color: var(--grey-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 10px;
+  background-color: var(--light-grey-color);
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+}
+
+.login-section {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-user {
+  display: flex;
+  align-items: center;
+}
+
+.login-user-name {
+  margin-left: 10px;
+}
+
+.login-btn {
+  padding: 8px 15px;
+  background-color: var(--grey-background-color);
+  color: var(--dark-text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

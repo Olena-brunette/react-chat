@@ -3,7 +3,7 @@ import { ChatContext } from '../../context';
 import './chatList.css';
 import { findById, formatTimestamp, getColor } from '../helpers';
 import Dialog from '../dialog/Dialog';
-import { FormProvider, set, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Form } from '../form/Form';
 import { editChat } from '../../api/helpers';
 

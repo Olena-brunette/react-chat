@@ -1,5 +1,5 @@
 import axios from 'axios';
-import API from './api';
+import API, { baseUrl } from './api';
 
 interface GetChatProps {
   id: string;
@@ -7,7 +7,6 @@ interface GetChatProps {
   lastChatId?: string;
 }
 
-const baseUrl = `${process.env.VITE_API_URL}api`;
 
 const transformResponse = (response: any) =>
   response.data.map(({ _id, ...rest }: any) => ({

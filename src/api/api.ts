@@ -1,8 +1,10 @@
 import axios from 'axios';
 import AuthService from './authService';
 
+export const baseUrl = `${import.meta.env.VITE_API_URL}/api`;
+
 const api = axios.create({
-  baseURL: `${process.env.VITE_API_URL}/api`,
+  baseURL: baseUrl,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -29,6 +31,12 @@ api.interceptors.response.use(
       originalRequest.url.includes(url),
     );
     if (isSkippedUrl) {
+      return Promise.reject(error);
+    }
+
+    if (error.response.status === 401) {
+      AuthService.clearTokens();
+      window.location.href = '/login';
       return Promise.reject(error);
     }
 

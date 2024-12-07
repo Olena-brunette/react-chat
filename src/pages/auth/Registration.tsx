@@ -4,7 +4,7 @@ import './auth.css';
 import { registerUser, setAccessToken } from '../../api/helpers';
 import { useContext, useState } from 'react';
 import { ChatContext } from '../../context';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from '../../components/toast/Toast';
 import AuthService from '../../api/authService';
 
@@ -64,7 +64,7 @@ export const RegistrationPage = () => {
       const user = await registerUser({ login, password });
       if (user) {
         context?.setUser(user);
-        setAccessToken(user.accessToken); 
+        setAccessToken(user.accessToken);
         AuthService.saveTokens(user.accessToken, user.refreshToken);
         navigate('/chat');
       }
@@ -88,6 +88,10 @@ export const RegistrationPage = () => {
       <button className="auth-btn" onClick={methods.handleSubmit(registration)}>
         Sign up
       </button>
+      <Link className="auth-link" to={'/login'}>
+        I already have an account
+      </Link>
+
       {error && (
         <Toast message={error} type="error" onClose={() => setError('')} />
       )}

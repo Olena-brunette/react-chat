@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { baseUrl } from './api';
 
-const baseUrl = `${process.env.VITE_API_URL}/api`;
 
 class AuthService {
   static getAccessToken(): string | null {

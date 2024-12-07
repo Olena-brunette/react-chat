@@ -1,4 +1,4 @@
-import { createRef, useContext, useEffect, useState } from 'react';
+import { createRef, useContext, useEffect, useRef, useState } from 'react';
 import { ChatContext, Message } from '../../context';
 import './chat.css';
 import { getAllMessagesPerChat, sendMessage } from '../../api/helpers';
@@ -14,6 +14,8 @@ export const Chat = () => {
   const [message, setMessage] = useState('');
 
   const ref = createRef<HTMLDivElement>();
+  const isRenderFirst = useRef(true);
+  const prevMessageCount = useRef(0);
   const context = useContext(ChatContext);
   const chatId = context?.activeChat?.id;
 
@@ -29,7 +31,7 @@ export const Chat = () => {
         userId: context.user.id,
         message,
       });
-      setMessages([sentMessage, ...messages]);
+      setMessages([...messages, sentMessage]);
       setMessage('');
     } catch (err) {
       if (err instanceof Error) {
@@ -47,8 +49,6 @@ export const Chat = () => {
 
     try {
       const fetchedMessages = await getAllMessagesPerChat({ id: chatId });
-    
-
       setMessages(fetchedMessages);
     } catch (err) {
       if (err instanceof Error) {
@@ -78,8 +78,23 @@ export const Chat = () => {
 
   useEffect(() => {
     if (!messages.length) return;
+    if (isRenderFirst.current) {
+      isRenderFirst.current = false; 
+      prevMessageCount.current = messages.length;
+      return; 
+    }
+    console.log(
+      'messages',
+      isRenderFirst.current,
+      prevMessageCount.current,
+      messages.length,
+    );
     const lastMessage = messages[messages.length - 1];
-    if (lastMessage.id !== lastId) {
+    if (
+      prevMessageCount.current !== messages.length &&
+      lastMessage.id !== lastId &&
+      !lastMessage.sender
+    ) {
       setLastId(lastMessage.id);
       setNotification('New message');
     }

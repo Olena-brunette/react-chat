@@ -1,0 +1,61 @@
+name: CI Pipeline with Ephemeral and Production Deployment
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: |
+          if [ -f package.json ] && grep -q "\"test\":" package.json; then
+            npm test
+          else
+            echo "No tests found, skipping."
+          fi
+
+      - name: Build project
+        run: npm run build
+
+  ephemeral-deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Deploy to Vercel Ephemeral Environment
+        run: curl -X POST -d '{}' "https://api.vercel.com/v1/integrations/deploy/${{ env.VITE_PROJECT_ID }}/${{ env.VITE_VERCEL_TOKEN }}"
+
+  production-deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Deploy to Vercel Production Environment
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel --prod

@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { Form } from '../../components/form/Form';
 import './auth.css';
-import { loginUser, registerUser, setAccessToken } from '../../api/helpers';
+import { loginUser, setAccessToken } from '../../api/helpers';
 import { useContext, useState } from 'react';
 import { ChatContext } from '../../context';
 import { Link, useNavigate } from 'react-router-dom';
@@ -80,7 +80,7 @@ export const Login = () => {
       <button className="auth-btn" onClick={methods.handleSubmit(login)}>
         Sign in
       </button>
-      
+
       <Link className="auth-link" to={'/registration'}>
         I don't have an account
       </Link>

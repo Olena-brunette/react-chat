@@ -66,8 +66,8 @@ export const RegistrationPage = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "email": "ggg@test.com",
-        "username": "testttt",
+        "email": "prod@test.com",
+        "username": "testprod",
         "password": "admin123strinG"
       }),
     });
